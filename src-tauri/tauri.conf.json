@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "LunPDF",
+  "version": "0.1.0",
+  "identifier": "io.github.xianglun918.lunpdf",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "LunPDF",
+        "width": 1180,
+        "height": 840,
+        "minWidth": 700,
+        "minHeight": 520,
+        "center": true,
+        "dragDropEnabled": true,
+        "theme": null
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Productivity",
+    "shortDescription": "轻量本地 PDF 阅读器",
+    "longDescription": "LunPDF 是一个基于 Tauri + pdf.js 的轻量 PDF 阅读器：连续滚动、目录、全文搜索、文本选择、阅读位置记忆，全部本地运行，不上传任何文件。",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "fileAssociations": [
+      {
+        "ext": ["pdf"],
+        "name": "PDF Document",
+        "description": "PDF 文档",
+        "role": "Viewer",
+        "mimeType": "application/pdf"
+      }
+    ],
+    "linux": {
+      "deb": {
+        "depends": []
+      }
+    }
+  }
+}

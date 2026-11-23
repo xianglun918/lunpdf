@@ -1,0 +1,14 @@
+# 依赖
+node_modules/
+# 前端产物
+dist/
+# Rust 构建产物
+src-tauri/target/
+# tauri 生成的 schema（构建时自动生成）
+src-tauri/gen/
+# 本地测试用的示例 PDF，不入库
+public/sample-*.pdf
+# 杂项
+*.log
+.DS_Store
+.vite/

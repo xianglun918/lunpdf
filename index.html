@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LunPDF</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 工具栏 -->
+      <header id="toolbar">
+        <div class="tb-group">
+          <button id="btn-open" class="icon-btn" title="打开 PDF（Ctrl+O）">
+            <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
+          </button>
+          <span id="doc-title" class="doc-title">未打开文档</span>
+        </div>
+
+        <div class="tb-group center">
+          <button id="btn-prev" class="icon-btn" title="上一页（←）">
+            <svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>
+          </button>
+          <div class="page-box">
+            <input id="page-input" type="text" inputmode="numeric" value="-" disabled />
+            <span class="sep">/</span>
+            <span id="page-total">-</span>
+          </div>
+          <button id="btn-next" class="icon-btn" title="下一页（→）">
+            <svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+
+        <div class="tb-group">
+          <button id="btn-zoom-out" class="icon-btn" title="缩小（Ctrl+-）">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+          </button>
+          <button id="btn-zoom-reset" class="zoom-label" title="重置为 100%">100%</button>
+          <button id="btn-zoom-in" class="icon-btn" title="放大（Ctrl++）">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button id="btn-fit-width" class="icon-btn" title="适应宽度（W）">
+            <svg viewBox="0 0 24 24"><path d="M4 8v8M20 8v8M8 12h8M8 12l2-2M8 12l2 2M16 12l-2-2M16 12l-2 2"/></svg>
+          </button>
+          <button id="btn-outline" class="icon-btn" title="目录（T）">
+            <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/></svg>
+          </button>
+          <button id="btn-search" class="icon-btn" title="搜索（Ctrl+F）">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg>
+          </button>
+          <button id="btn-theme" class="icon-btn" title="切换主题（D）">
+            <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div id="body">
+        <!-- 侧栏 -->
+        <aside id="sidebar" class="hidden">
+          <div class="side-tabs">
+            <button class="side-tab active" data-tab="outline">目录</button>
+            <button class="side-tab" data-tab="search">搜索</button>
+            <button id="side-close" class="icon-btn small" title="关闭侧栏">
+              <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+          </div>
+          <div id="pane-outline" class="side-pane"><div class="empty">暂无目录</div></div>
+          <div id="pane-search" class="side-pane hidden">
+            <div class="search-bar">
+              <input id="search-input" type="text" placeholder="搜索全文…" />
+              <span id="search-count" class="search-count"></span>
+            </div>
+            <div id="search-results" class="search-results"><div class="empty">输入关键词开始搜索</div></div>
+          </div>
+        </aside>
+
+        <!-- 阅读区 -->
+        <main id="viewport">
+          <div id="pages"></div>
+          <div id="drop-hint" class="drop-hint hidden"><div class="dh-inner">松手打开 PDF</div></div>
+          <div id="welcome" class="welcome">
+            <div class="wlogo">
+              <svg viewBox="0 0 48 48"><path d="M12 6h16l10 10v26a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/><path d="M28 6v10h10"/></svg>
+            </div>
+            <h1>LunPDF</h1>
+            <p class="sub">轻量 · 本地 · 开源</p>
+            <button id="btn-open-2" class="primary-btn">打开 PDF 文件</button>
+            <p class="tip">也可以直接把 PDF 拖进窗口　<kbd>Ctrl</kbd> + <kbd>O</kbd></p>
+            <div id="recent" class="recent hidden">
+              <div class="recent-title">最近打开</div>
+              <div id="recent-list"></div>
+            </div>
+          </div>
+        </main>
+
+        <!-- 加载遮罩 -->
+        <div id="loading" class="loading hidden"><div class="spinner"></div><span id="loading-text">正在加载…</span></div>
+      </div>
+
+      <div id="toast" class="toast"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
