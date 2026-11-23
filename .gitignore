@@ -12,3 +12,4 @@ public/sample-*.pdf
 *.log
 .DS_Store
 .vite/
+shot-*.png

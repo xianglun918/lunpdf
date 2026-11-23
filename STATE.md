@@ -25,13 +25,17 @@ v0.1.0（未发布）
 
 - `npm run build` 通过（tsc + vite，主包 ~532KB，worker ~2.4MB）
 - headless Chromium 打开 15 页中文报告：封面渲染完整、62 个文本 span、中文正确
-- 目录/搜索/缩放/翻页在浏览器预览模式下可用
+- 目录 15 项、搜索「呆呆橘」14 处命中、页内高亮位置准确（截图确认）
+- 缩放 116%→154% 保持滚动锚点、跳页到第 6 页、深色主题切换均正常
+- **`tauri build` 成功**：`src-tauri/target/release/bundle/deb/LunPDF_0.1.0_amd64.deb`（4.26 MiB），首次全量编译 11m45s
+- **Xvfb + openbox 内真实启动**：窗口渲染正常、文件对话框打开 `sample-deck.pdf`、14 页 deck 渲染完整、标题联动更新
 
 ## 待办
 
-- [ ] `tauri build` 出 Linux deb/AppImage，Xvfb 内启动截图
-- [ ] 真机验证（Windows/macOS 包走 CI）
-- [ ] 可选增强：缩略图侧栏、双页模式、注释/表单层、PDF 大纲折叠
+- [x] `tauri build` 出 Linux deb，Xvfb 内启动截图
+- [ ] Windows / macOS 安装包（必须走 CI，Linux 无法交叉编译）
+- [ ] git 远端：尚未 push 到 GitHub
+- [ ] 可选增强：缩略图侧栏、双页模式、注释/表单层、大纲折叠
 
 ## 踩过的坑（勿重复）
 
@@ -40,6 +44,9 @@ v0.1.0（未发布）
 3. `page.render()` 传 `canvasContext` 即可，同时传 `canvas` 在 v6 下行为不一致。
 4. 缩放时必须在改 `this.scale` **之前**取基准尺寸（`pageBaseSize()` 依赖旧 scale）。
 5. patch 工具对 TS 文件会跑默认 es5 lib 的 tsc，喷几百条假错误——用 `npm run build` 判断真实结果。
+6. **NAS 卷上 `src-tauri/target` 目录权限会被置成 `d---------`**，cargo 报 "output file ... is not writeable"。构建前 `chmod -R u+rwX src-tauri/target`。
+7. `xdotool key --window <wid>` 发的合成事件 GTK 会忽略，必须 `windowactivate` 后用真实焦点发键（或直接 `mousemove ... click 1` 点按钮）。
+8. 首次全量 Rust 编译约 12 分钟（4 核 NAS），之后增量编译 1 分钟内。
 
 ## 命令
 
